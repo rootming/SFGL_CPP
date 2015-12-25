@@ -48,10 +48,10 @@ Terminal color
 #define SFGL_DEBUG_ERROR(...)		fprintf(stderr, "%s[ERROR]%s%s[FileName]%s%s%s[Line]%s%d\n\t" ,BRED, BWHITE, BBLUE,	BWHITE, __FILE__, BBLUE, BWHITE,__LINE__) ;\
 fprintf(stderr, __VA_ARGS__);
 
-#define SFGL_DEBUG_WORRY(...)		fprintf(stderr, "%s[WORRY]%s%s[FileName]%s%s%s[Line]%s%d\n\t" ,BYELLOW, BWHITE, BBLUE,	BWHITE, __FILE__, BBLUE, BWHITE,__LINE__) ;\
+#define SFGL_DEBUG_WORRY(...)		fprintf(stderr, "%s[WORRY]%s%s[FileName]%s%s%s[Line]%s%d\n\t" ,BYELLOW, BWHITE, BBLUE, BWHITE, __FILE__, BBLUE, BWHITE,__LINE__) ;\
 fprintf(stderr, __VA_ARGS__);
 
-#define SFGL_DEBUG_INFO(...)		fprintf(stdout, "%s[INFO]%s%s[FileName]%s%s%s[Line]%s%d\n\t" ,BGREEN, BWHITE, BBLUE,	BWHITE, __FILE__, BBLUE, BWHITE,__LINE__) ;\
+#define SFGL_DEBUG_INFO(...)		fprintf(stdout, "%s[INFO]%s%s[FileName]%s%s%s[Line]%s%d\n\t" ,BGREEN, BWHITE, BBLUE, BWHITE, __FILE__, BBLUE, BWHITE,__LINE__) ;\
 fprintf(stdout, __VA_ARGS__);
 
 #else

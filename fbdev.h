@@ -15,14 +15,16 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
-//#include "basedraw.h"
+#include "drawdef.h"
+//#include "surface.h"
+//#include "SFGLDraw.h"
 
 using namespace  std;
 
 
-class BaseDraw;
+class SFGLDraw;
 
-typedef struct _BaseFbdev{
+struct BaseFbdev{
     int fbdf;
     void *fb_mmap;		//内存地址
     char *device;		//设备名
@@ -33,34 +35,32 @@ typedef struct _BaseFbdev{
     int32_t fb_size;		//高*宽*像素点字节
     struct fb_fix_screeninfo fb_fix;
     struct fb_var_screeninfo fb_var;
-} BaseFbdev;
+} ;
 
-class Fbdev
+class Fbdev : virtual public SFGLDATA
 {
 public:
-    Fbdev(const int w, const int h);
+    Fbdev(const int w = 0, const int h = 0);
     ~Fbdev();
     static Fbdev *videoDevice;
-    int getWidth(void) const {return width;}
-    int getHeight(void) const {return height;}
-    void resize(const int w, const int h);
-    void printFixedInfo();
-    void printVariableInfo();
-    virtual void update(void);
-    friend class BaseDraw;
-
+//    int getWidth(void) const {return width;}
+//    int getHeight(void) const {return height;}
+    friend class SFGLDraw;
+    friend class SFGLSurface;
+    static int8_t redOffset;
+    static int8_t blueOffset;
+    static int8_t greenOffset;
+    static int8_t alphaOffset;
+    void update(void);
 
 protected:
-    int32_t width, height;
-    int32_t *buffer;	//缓冲图层指针
-    int32_t bytes(void) {return width * height * sizeof(int32_t);}
-    vector<Fbdev> surfaceStack;
-
 
 private:
     BaseFbdev data;
     int initFbdev(void);
     int closeFbdev(void);
+    void printFixedInfo();
+    void printVariableInfo();
 
 
 };

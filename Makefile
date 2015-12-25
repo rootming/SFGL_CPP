@@ -36,7 +36,7 @@ DISTNAME      = SFGL1.0.0
 DISTDIR = /home/rootming/SFGL/new/SFGL/.tmp/SFGL1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/rootming/Qt5.5.1/5.5/gcc_64
-LIBS          = $(SUBLIBS) -static -lpthread 
+LIBS          = $(SUBLIBS) -static -lpthread -lpng12 -lz 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -51,11 +51,15 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		fbdev.cpp \
 		basedraw.cpp \
-		surface.cpp 
+		surface.cpp \
+		image.cpp \
+		drawdef.cpp 
 OBJECTS       = main.o \
 		fbdev.o \
 		basedraw.o \
-		surface.o
+		surface.o \
+		image.o \
+		drawdef.o
 DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/unix.conf \
 		../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/linux.conf \
@@ -190,10 +194,13 @@ DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		basedraw.h \
 		surface.h \
 		deffont.h \
-		drawdef.h main.cpp \
+		drawdef.h \
+		image.h main.cpp \
 		fbdev.cpp \
 		basedraw.cpp \
-		surface.cpp
+		surface.cpp \
+		image.cpp \
+		drawdef.cpp
 QMAKE_TARGET  = SFGL
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = SFGL
@@ -526,12 +533,15 @@ compiler_clean:
 ####### Compile
 
 main.o: main.cpp fbdev.h \
+		drawdef.h \
 		basedraw.h \
 		surface.h \
-		drawdef.h
+		debug.h \
+		image.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 fbdev.o: fbdev.cpp fbdev.h \
+		drawdef.h \
 		debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fbdev.o fbdev.cpp
 
@@ -545,8 +555,18 @@ basedraw.o: basedraw.cpp basedraw.h \
 
 surface.o: surface.cpp surface.h \
 		drawdef.h \
-		fbdev.h
+		fbdev.h \
+		debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o surface.o surface.cpp
+
+image.o: image.cpp image.h \
+		fbdev.h \
+		drawdef.h \
+		surface.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image.o image.cpp
+
+drawdef.o: drawdef.cpp drawdef.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o drawdef.o drawdef.cpp
 
 ####### Install
 

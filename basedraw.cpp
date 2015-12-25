@@ -5,17 +5,21 @@
 #include <cstring>
 
 
-BaseDraw::BaseDraw()
+SFGLDraw::SFGLDraw()
 {
 
 
 }
 
 
-void BaseDraw::drawPixel(Fbdev &surface, int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawPixel(SFGLDATA &surface, int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t seek;
-    int32_t tmp = r << 24 | g << 16 | b << 8 | a;
+    int32_t tmp = r << Fbdev::redOffset |
+                       g << Fbdev::greenOffset |
+                            b << Fbdev::blueOffset |
+                                a << Fbdev::alphaOffset;
+
     seek = x + y * surface.width;
     //边缘检测
     //cout << "Draw postion:" << x << " " << y << endl;
@@ -28,7 +32,7 @@ void BaseDraw::drawPixel(Fbdev &surface, int32_t x, int32_t y, uint8_t r, uint8_
     }
 }
 
-void BaseDraw::drawPixel(Fbdev &surface, SFGLPixel &pixel)
+void SFGLDraw::drawPixel(SFGLDATA &surface, SFGLPixel &pixel)
 {
     int32_t seek;
     int32_t tmp = pixel.r << 24 | pixel.g << 16 | pixel.b << 8 | pixel.a;
@@ -44,7 +48,7 @@ void BaseDraw::drawPixel(Fbdev &surface, SFGLPixel &pixel)
 
 
 /* 画线函数 */
-void BaseDraw::drawLine(Fbdev &surface, int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawLine(SFGLDATA &surface, int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t x_s, x_e, y_s, y_e;/* Be careful */
     int32_t bz;
@@ -68,7 +72,7 @@ void BaseDraw::drawLine(Fbdev &surface, int32_t x1, int32_t y1, int32_t x2, int3
 
 }
 
-void BaseDraw::drawLine(Fbdev &surface, SFGLPost &post1, SFGLPost &post2, SFGLColor &color)
+void SFGLDraw::drawLine(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFGLColor &color)
 {
     int32_t x_s, x_e, y_s, y_e;/* Be careful */
     int32_t bz;
@@ -92,7 +96,7 @@ void BaseDraw::drawLine(Fbdev &surface, SFGLPost &post1, SFGLPost &post2, SFGLCo
 }
 
 /* 画矩形函数 */
-void BaseDraw::drawRect(Fbdev &surface,int32_t x, int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawRect(SFGLDATA &surface,int32_t x, int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
 
     drawLine(surface, x, y, x + w, y, r, g, b, a);
@@ -101,51 +105,51 @@ void BaseDraw::drawRect(Fbdev &surface,int32_t x, int32_t y,int32_t w, int32_t h
     drawLine(surface, x + w, y, x + w, y + h, r, g, b, a);
 }
 
-void BaseDraw::drawRectFill(Fbdev &surface, int32_t x,int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawRectFill(SFGLDATA &surface, int32_t x,int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t yy;
     for(yy = 0; yy <= h; yy++)
         drawLine(surface, x, y + yy, x + w, y + yy, r, g, b, a);
 }
 
-void BaseDraw::drawRect(Fbdev &surface, SFGLRect &rect, SFGLColor &color)
+void SFGLDraw::drawRect(SFGLDATA &surface, SFGLRect &rect, SFGLColor &color)
 {
     drawRect(surface, rect.x, rect.y, rect.w, rect.h, color.r, color.g, color.b, color.a);
 }
 
-void BaseDraw::drawRectFill(Fbdev &surface,  SFGLRect &rect, SFGLColor &color)
+void SFGLDraw::drawRectFill(SFGLDATA &surface,  SFGLRect &rect, SFGLColor &color)
 {
     drawRectFill(surface, rect.x, rect.y, rect.w, rect.h, color.r, color.g, color.b, color.a);
 }
 
 /* 画正方形函数 */
-void BaseDraw::drawSquare(Fbdev &surface, int32_t x, int32_t y, int32_t len, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawSquare(SFGLDATA &surface, int32_t x, int32_t y, int32_t len, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     drawRect(surface, x, y, len, len, r, g, b, a);
 
 }
 
-void BaseDraw::drawSquareFill(Fbdev &surface, int32_t x, int32_t y, int32_t len,
+void SFGLDraw::drawSquareFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t len,
         uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     drawRectFill(surface, x, y, len, len, r, g, b, a);
 
 }
 
-void BaseDraw::drawSquare(Fbdev &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
+void SFGLDraw::drawSquare(SFGLDATA &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
 {
     drawRect(surface, x, y, len, len, color.r, color.g, color.b, color.a);
 
 }
 
-void BaseDraw::drawSquareFill(Fbdev &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
+void SFGLDraw::drawSquareFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
 {
     drawRectFill(surface, x, y, len, len, color.r, color.g, color.b, color.a);
 
 }
 
 
-void BaseDraw::putDot(Fbdev &surface, int32_t x0, int32_t y0, int32_t x,
+void SFGLDraw::putDot(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t x,
         int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     drawPixel(surface, x0 + x, y0 + y, r, g, b, a);
@@ -159,7 +163,7 @@ void BaseDraw::putDot(Fbdev &surface, int32_t x0, int32_t y0, int32_t x,
 }
 
 /* 画圆函数 */
-void BaseDraw::drawCircle(Fbdev &surface, int32_t x0, int32_t y0, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawCircle(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     if(x0 - r >= surface.width || y0 - r >= surface.height)
         return;
@@ -183,7 +187,7 @@ void BaseDraw::drawCircle(Fbdev &surface, int32_t x0, int32_t y0, int32_t rad, u
 
 }
 
-void BaseDraw::drawCircleFill(Fbdev &surface, int32_t x, int32_t y, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawCircleFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t yy;
     double tmp;
@@ -195,7 +199,7 @@ void BaseDraw::drawCircleFill(Fbdev &surface, int32_t x, int32_t y, int32_t rad,
 }
 
 /* 写字符函数,只支持ASCII */
-void BaseDraw::drawStr(Fbdev &surface, string &str, int32_t x, int32_t y)
+void SFGLDraw::drawStr(SFGLDATA &surface, string &str, int32_t x, int32_t y)
 {
     SFGL_DEBUG_INFO("%s\n", str.c_str());
     int32_t ox, oy;
@@ -220,9 +224,10 @@ void BaseDraw::drawStr(Fbdev &surface, string &str, int32_t x, int32_t y)
                 //if(((font_bits[seek] >> (i + 8) ) & 1) == 1)
                 //DrawPixel(surface, ox+8-i, oy+l, 255, 255, 255, 255);
                 if(((font_bits[seek] >> i) & 1) == 1)
-                    drawPixel(surface, ox - i, oy + l, 200, 200, 200, 220);
+                    drawPixel(surface, ox - i, oy + l, 255, 255, 255, 255);
                 //else
                 //_DrawPixel(surface,ox+8-i,oy+l,255,255,5,255);
+               // cout << "draw" << endl;
             }
             seek++;
         }
@@ -231,13 +236,13 @@ void BaseDraw::drawStr(Fbdev &surface, string &str, int32_t x, int32_t y)
 
 }
 
-void BaseDraw::drawStr(Fbdev &surface, string &str, SFGLPost &post)
+void SFGLDraw::drawStr(SFGLDATA &surface, string &str, SFGLPost &post)
 {
     drawStr(surface, str, post.x, post.y);
 
 }
 
-void BaseDraw::fillSurface(Fbdev &surface, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::fillSurface(SFGLDATA &surface, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     for(int32_t y = 0; y < surface.height; y++)
         for(int32_t x = 0; x < surface.width; x++)
@@ -247,7 +252,7 @@ void BaseDraw::fillSurface(Fbdev &surface, uint8_t r, uint8_t g, uint8_t b, uint
 
 }
 
-void BaseDraw::fillSurface(Fbdev &surface, SFGLPixel &color)
+void SFGLDraw::fillSurface(SFGLDATA &surface, SFGLPixel &color)
 {
     for(int32_t y = 0; y < surface.height; y++)
         for(int32_t x = 0; x < surface.width; x++)

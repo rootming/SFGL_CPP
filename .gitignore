@@ -1,2 +1,5 @@
 *.o
 SFGL
+*.txt
+src
+*.user
