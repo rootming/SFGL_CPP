@@ -14,6 +14,7 @@ SFGLDraw::SFGLDraw()
 
 void SFGLDraw::drawPixel(SFGLDATA &surface, int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
+    //lock();
     int32_t seek;
     int32_t tmp = r << Fbdev::redOffset |
                        g << Fbdev::greenOffset |
@@ -30,6 +31,7 @@ void SFGLDraw::drawPixel(SFGLDATA &surface, int32_t x, int32_t y, uint8_t r, uin
     else{
         SFGL_DEBUG_WORRY("Draw Pixel out of Range!\n");
     }
+    //unlock();
 }
 
 void SFGLDraw::drawPixel(SFGLDATA &surface, SFGLPixel &pixel)

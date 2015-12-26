@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+#include <pthread.h>
 #include "drawdef.h"
 //#include "surface.h"
 //#include "SFGLDraw.h"
@@ -52,6 +53,10 @@ public:
     static int8_t greenOffset;
     static int8_t alphaOffset;
     void update(void);
+
+
+
+
 
 protected:
 

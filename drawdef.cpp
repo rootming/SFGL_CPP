@@ -1,6 +1,15 @@
 #include "drawdef.h"
 #include <iostream>
 
+
+SFGLDATA::SFGLDATA()
+{
+    width = 0;
+    height = 0;
+    postx = 0;
+    posty = 0;
+}
+
 void SFGLDATA::resize(const int w, const int h)
 {
     width = w;

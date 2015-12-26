@@ -36,6 +36,7 @@ Fbdev::~Fbdev()
             close(data.fbdf);
         }
     }
+
 }
 
 int Fbdev::initFbdev(void)
@@ -83,8 +84,8 @@ int Fbdev::initFbdev(void)
     }
 
     SFGL_DEBUG_INFO("Memory Mmap successful!\n");
-    printFixedInfo();
-    printVariableInfo();
+    //printFixedInfo();
+    //printVariableInfo();
     data.width = data.fb_var.xres;
     data.height = data.fb_var.yres;
     data.depth = data.fb_var.bits_per_pixel;
@@ -175,7 +176,7 @@ void Fbdev::update(void)
     //memcpy(data.fb_mmap, buffer, bytes());
     //cout << height<<endl;
     for(int32_t y = 0; y < height; y++){
-            memcpy((int32_t *)data.fb_mmap + data.width * y,
+            memcpy((int32_t *)data.fb_mmap + data.width * (y + posty) + postx,
                    buffer + width * y,
                    width * sizeof(int32_t));
     }

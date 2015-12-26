@@ -24,7 +24,17 @@ void *testfun(void *wait){
     printf("Draw %d Pixel/s\n", times);
     return NULL;
 }
+void *autoUpdate(void *surface)
+{
+    Fbdev *fb;
+    fb = (Fbdev *)surface;
+    int fps = 30;
+    for(;;){
+        usleep(1000 / fps);
+        fb->update();
+    }
 
+}
 
 int main()
 {
@@ -32,6 +42,7 @@ int main()
     int h = 600;
     int delay = 3;
     pthread_t t;
+
     Fbdev test(w, h);
     SFGLSurface screen(w, h);
     SFGLColor color(255, 255, 255, 255);
@@ -40,40 +51,63 @@ int main()
     string testStr = "This a test.";
     SFGLPost testPost(0, 0);
     srand(time(0));
+    pthread_create(&t, NULL, autoUpdate, &test);
     SFGLDraw::drawLine(test, 0, 0, 100, 100, 255, 255, 255);
     SFGLDraw::drawLine(test, 0, 100, 100, 0, 255, 255, 255);
     SFGLDraw::drawRectFill(test, 100, 100, 400, 400, 255, 255, 255, 255);
     SFGLDraw::drawCircleFill(test, 500, 500, 100, 100, 100, 100, 255);
     SFGLDraw::drawStr(test, testStr, testPost);
     //SFGLImage image(string("test.png"), &test);
-    test.update();
-    test.resize(1920, 1080);
+    //test.update();
+
+    w = 600;
+    h = 600;
+    test.setPostx(100);
+    test.setPosty(100);
+    test.resize(w, h);
     sleep(3);
+
     gettimeofday(&start, NULL);
     pthread_create(&t, NULL, testfun, &delay);
     ret = false;
     while(ret == false){
         SFGLDraw::drawLine(test, rand() % w, rand() % h, rand() % w, rand() % h,
-                                 rand() % 255, rand() % 255, rand() % 255, 100);//随机产生圆
+                                 rand() % 255, rand() % 255, rand() % 255, 255);//随机产生圆
         times++;
-        test.update();
+        //test.update();
     }
     pthread_create(&t, NULL, testfun, &delay);
     ret = false;
     while(ret == false){
         SFGLDraw::drawCircleFill(test, rand() % w, rand() % h, rand() % 100,
-                                 rand() % 255, rand() % 255, rand() % 255, 100);//随机产生圆
+                                 rand() % 255, rand() % 255, rand() % 255, 255);//随机产生圆
         times++;
-        test.update();
+        //test.update();
     }
     pthread_create(&t, NULL, testfun, &delay);
     ret = false;
     while(ret == false){
         SFGLDraw::drawSquareFill(test, rand() % w, rand() % h, rand() % 100,
-                                 rand() % 255, rand() % 255, rand() % 255, 100);
+                                 rand() % 255, rand() % 255, rand() % 255, 255);
         times++;
-        test.update();
+        //test.update();
     }
+    int boxw = 100;
+    for(int y = 0; y < 10; y++){
+        for(int x = 0; x < 10; x++){
+            if(y % 2 == 1)
+                if(x % 2 == 1)
+                    SFGLDraw::drawRectFill(test, x * boxw, y * boxw, boxw, boxw, 255, 255, 255, 0);
+                else
+                    SFGLDraw::drawRectFill(test, x * boxw, y * boxw, boxw, boxw, 0, 0, 0, 0);
+            else
+                if(x % 2 == 1)
+                    SFGLDraw::drawRectFill(test, x * boxw, y * boxw, boxw, boxw, 0, 0, 0, 0);
+                else
+                    SFGLDraw::drawRectFill(test, x * boxw, y * boxw, boxw, boxw, 255, 255, 255, 0);
+        }
+    }
+    //test.update();
     return 0;
 }
 

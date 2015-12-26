@@ -16,6 +16,12 @@ SFGLSurface::SFGLSurface(int32_t w, int32_t h, SFGLDATA *parent)
         parent->surfaceStack.push_back(this);
     }
     alpha = 0;
+    pthread_mutex_init(&mutex, NULL);
+}
+
+SFGLSurface::~SFGLSurface()
+{
+    pthread_mutex_destroy(&mutex);
 }
 
 void SFGLSurface::setColor(SFGLColor &color)
