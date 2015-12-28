@@ -51,7 +51,7 @@ int main()
     string testStr = "This a test.";
     SFGLPost testPost(0, 0);
     srand(time(0));
-    pthread_create(&t, NULL, autoUpdate, &test);
+    //pthread_create(&t, NULL, autoUpdate, &test);
     SFGLDraw::drawLine(test, 0, 0, 100, 100, 255, 255, 255);
     SFGLDraw::drawLine(test, 0, 100, 100, 0, 255, 255, 255);
     SFGLDraw::drawRectFill(test, 100, 100, 400, 400, 255, 255, 255, 255);
@@ -60,8 +60,8 @@ int main()
     //SFGLImage image(string("test.png"), &test);
     //test.update();
 
-    w = 600;
-    h = 600;
+    w = 800;
+    h = 800;
     test.setPostx(100);
     test.setPosty(100);
     test.resize(w, h);
@@ -74,7 +74,7 @@ int main()
         SFGLDraw::drawLine(test, rand() % w, rand() % h, rand() % w, rand() % h,
                                  rand() % 255, rand() % 255, rand() % 255, 255);//随机产生圆
         times++;
-        //test.update();
+        test.update();
     }
     pthread_create(&t, NULL, testfun, &delay);
     ret = false;
@@ -82,7 +82,7 @@ int main()
         SFGLDraw::drawCircleFill(test, rand() % w, rand() % h, rand() % 100,
                                  rand() % 255, rand() % 255, rand() % 255, 255);//随机产生圆
         times++;
-        //test.update();
+        test.update();
     }
     pthread_create(&t, NULL, testfun, &delay);
     ret = false;
@@ -90,11 +90,12 @@ int main()
         SFGLDraw::drawSquareFill(test, rand() % w, rand() % h, rand() % 100,
                                  rand() % 255, rand() % 255, rand() % 255, 255);
         times++;
-        //test.update();
+        test.update();
     }
-    int boxw = 100;
-    for(int y = 0; y < 10; y++){
-        for(int x = 0; x < 10; x++){
+    int boxw = 80;
+    int count = 10;
+    for(int y = 0; y < count; y++){
+        for(int x = 0; x < count; x++){
             if(y % 2 == 1)
                 if(x % 2 == 1)
                     SFGLDraw::drawRectFill(test, x * boxw, y * boxw, boxw, boxw, 255, 255, 255, 0);
@@ -107,7 +108,7 @@ int main()
                     SFGLDraw::drawRectFill(test, x * boxw, y * boxw, boxw, boxw, 255, 255, 255, 0);
         }
     }
-    //test.update();
+    test.update();
     return 0;
 }
 

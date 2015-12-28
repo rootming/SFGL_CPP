@@ -6,8 +6,8 @@
 
 using namespace std;
 
-#define GetMax(a, b) (a) >= (b) ? (a) : (b)
-#define GetMin(a, b) (a) <= (b) ? (a) : (b)
+#define GETMAX(a, b) (a) >= (b) ? (a) : (b)
+#define GETMIN(a, b) (a) <= (b) ? (a) : (b)
 
 #define _DrawPixel(surface, x, y, r,g,b) 	\
 	({											\

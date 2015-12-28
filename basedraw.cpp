@@ -29,7 +29,9 @@ void SFGLDraw::drawPixel(SFGLDATA &surface, int32_t x, int32_t y, uint8_t r, uin
         memcpy(surface.buffer + seek, &tmp, sizeof(int32_t));
     }
     else{
+#ifdef DEBUG
         SFGL_DEBUG_WORRY("Draw Pixel out of Range!\n");
+#endif
     }
     //unlock();
 }
@@ -44,7 +46,9 @@ void SFGLDraw::drawPixel(SFGLDATA &surface, SFGLPixel &pixel)
         memcpy(surface.buffer + seek, &tmp, sizeof(int32_t));
     }
     else{
+        #ifdef DEBUG
         SFGL_DEBUG_WORRY("Draw Pixel out of Range!\n");
+        #endif
     }
 }
 
@@ -55,10 +59,10 @@ void SFGLDraw::drawLine(SFGLDATA &surface, int32_t x1, int32_t y1, int32_t x2, i
     int32_t x_s, x_e, y_s, y_e;/* Be careful */
     int32_t bz;
     double k;	//斜率
-    x_s = GetMin(x1, x2);
-    y_s = GetMin(y1, y2);
-    x_e = GetMax(x1, x2);
-    y_e = GetMax(y1, y2);
+    x_s = GETMIN(x1, x2);
+    y_s = GETMIN(y1, y2);
+    x_e = GETMAX(x1, x2);
+    y_e = GETMAX(y1, y2);
     if(y1 == y2)
         for(; x_s <= x_e; x_s++)
             drawPixel(surface, x_s, y_s, r, g, b, a);
@@ -79,10 +83,10 @@ void SFGLDraw::drawLine(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFG
     int32_t x_s, x_e, y_s, y_e;/* Be careful */
     int32_t bz;
     double k;	//斜率
-    x_s = GetMin(post1.x, post2.x);
-    y_s = GetMin(post1.y, post2.y);
-    x_e = GetMax(post1.x, post2.x);
-    y_e = GetMax(post1.y, post2.y);
+    x_s = GETMIN(post1.x, post2.x);
+    y_s = GETMIN(post1.y, post2.y);
+    x_e = GETMAX(post1.x, post2.x);
+    y_e = GETMAX(post1.y, post2.y);
     if(post1.y == post2.y)
         for(; x_s <= x_e; x_s++)
             drawPixel(surface, x_s, y_s, color.r, color.g, color.b, color.a);
@@ -203,7 +207,9 @@ void SFGLDraw::drawCircleFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t r
 /* 写字符函数,只支持ASCII */
 void SFGLDraw::drawStr(SFGLDATA &surface, string &str, int32_t x, int32_t y)
 {
+#ifdef DEBUG
     SFGL_DEBUG_INFO("%s\n", str.c_str());
+#endif
     int32_t ox, oy;
     int32_t c, i, l, seek, len;
     unsigned char width;
@@ -262,19 +268,3 @@ void SFGLDraw::fillSurface(SFGLDATA &surface, SFGLPixel &color)
 
 }
 
-
-//SFGLColor getColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-//{
-//    return SFGLColor(r, g, b ,a);
-//}
-
-//SFGLPost getPost(int32_t x, int32_t y)
-//{
-//    return SFGLPost(x, y);
-//}
-
-
-//SFGLRect getRect(int32_t x, int32_t y, int32_t w, int32_t h)
-//{
-//    return SFGLRect(x, y, w, h);
-//}

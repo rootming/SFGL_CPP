@@ -9,11 +9,11 @@ SFGLSurface::SFGLSurface(int32_t w, int32_t h, SFGLDATA *parent)
     width = h;
     if(parent == 0){
         SFGL_DEBUG_INFO("Add a master surface");
-        Fbdev::videoDevice->surfaceStack.push_back(this);
+        Fbdev::videoDevice->addChild(this);
     }
     else{
         SFGL_DEBUG_INFO("Add a child surface");
-        parent->surfaceStack.push_back(this);
+        parent->addChild(this);
     }
     alpha = 0;
     pthread_mutex_init(&mutex, NULL);

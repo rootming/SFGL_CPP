@@ -1,4 +1,5 @@
 #include "drawdef.h"
+#include "debug.h"
 #include <iostream>
 
 
@@ -22,5 +23,8 @@ void SFGLDATA::resize(const int w, const int h)
 
 void SFGLDATA::addChild(SFGLDATA *child)
 {
+#ifdef DEBUG
+    SFGL_DEBUG_INFO("Add child");
+#endif
     surfaceStack.push_back(child);
 }
