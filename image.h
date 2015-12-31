@@ -14,6 +14,7 @@ public:
     int loadFile(string filename);
 private:
     int loadImageFromPNG(string filename);
+    int loadImageFromXPM(string filename);
 };
 
 #endif // IMAGE_H

@@ -10,7 +10,7 @@ public:
     ~SFGLSurface();
     void setColor(SFGLColor &color);
     void update(void);
-    int trylock() { return pthread_mutex_trylock(&mutex); }
+    //int trylock() { return pthread_mutex_trylock(&mutex); }
 
 
 private:
@@ -22,8 +22,8 @@ private:
     uint8_t alpha;	//图层alpha值
     int32_t linelen;	//行像素占用内存
     vector<SFGLDATA *> surfaceStack;
-    void look(){ pthread_mutex_lock(&mutex); }
-    void unlook(){ pthread_mutex_unlock(&mutex); }
+    void lock(){ pthread_mutex_lock(&mutex); }
+    void unlock(){ pthread_mutex_unlock(&mutex); }
 };
 
 

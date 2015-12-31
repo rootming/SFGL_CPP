@@ -45,20 +45,25 @@ int main()
 
     Fbdev test(w, h);
     SFGLSurface screen(w, h);
-    SFGLColor color(255, 255, 255, 255);
+    SFGLColor color(255, 255, 255, 0);
     screen.update();
     screen.setColor(color);
-    string testStr = "This a test.";
-    SFGLPost testPost(0, 0);
+    string testStr = "Rendtest.";
+    SFGLPost testPost(100, 100);
+
+    SFGLPost v1(100, 100);
+    SFGLPost v2(50, 200);
+    SFGLPost v3(300, 100);
     srand(time(0));
-    //pthread_create(&t, NULL, autoUpdate, &test);
-    SFGLDraw::drawLine(test, 0, 0, 100, 100, 255, 255, 255);
-    SFGLDraw::drawLine(test, 0, 100, 100, 0, 255, 255, 255);
-    SFGLDraw::drawRectFill(test, 100, 100, 400, 400, 255, 255, 255, 255);
-    SFGLDraw::drawCircleFill(test, 500, 500, 100, 100, 100, 100, 255);
-    SFGLDraw::drawStr(test, testStr, testPost);
+    pthread_create(&t, NULL, autoUpdate, &test);
+//    SFGLDraw::drawLine(test, 0, 0, 100, 100, 255, 255, 255);
+//    SFGLDraw::drawLine(test, 0, 100, 100, 0, 255, 255, 255);
+//    SFGLDraw::drawRectFill(test, 100, 100, 400, 400, 255, 255, 255, 255);
+//    SFGLDraw::drawCircleFill(test, 500, 500, 100, 100, 100, 100, 255);
+//    SFGLDraw::drawTriangleFill(test, v1, v2, v3, color);
+//    SFGLDraw::drawStr(test, testStr, 400, 400);
     //SFGLImage image(string("test.png"), &test);
-    //test.update();
+    test.update();
 
     w = 800;
     h = 800;
@@ -84,6 +89,7 @@ int main()
         times++;
         test.update();
     }
+
     pthread_create(&t, NULL, testfun, &delay);
     ret = false;
     while(ret == false){

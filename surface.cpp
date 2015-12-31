@@ -26,10 +26,12 @@ SFGLSurface::~SFGLSurface()
 
 void SFGLSurface::setColor(SFGLColor &color)
 {
+    lock();
     int32_t tmp = color.r << 24 | color.g << 16 | color.b << 8 | color.a;
     for(int y = 0; y < height; y++)
         for(int x = 0; x < width; x++)
             *(buffer + y * width + x) = tmp;
+    unlock();
 
 }
 

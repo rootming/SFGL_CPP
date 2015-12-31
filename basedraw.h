@@ -96,6 +96,16 @@ class SFGLDraw
         static void putDot(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t x,
                            int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
+        static void fillBottomFlatTriangle(SFGLDATA &surface, SFGLPost &v1, SFGLPost &v2, SFGLPost &v3, SFGLColor &color);
+
+        static void fillTopFlatTriangle(SFGLDATA &surface, SFGLPost &v1, SFGLPost &v2, SFGLPost &v3, SFGLColor &color);
+
+        static void drawTriangle(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFGLPost &post3, SFGLColor &color);
+
+        static void drawTriangleFill(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFGLPost &post3, SFGLColor &color);
+
+
+
         //static SFGLPixel getColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0);
 
         //static SFGLPost getPost(int32_t x, int32_t y);
