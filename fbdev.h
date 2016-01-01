@@ -38,7 +38,7 @@ struct BaseFbdev{
     struct fb_var_screeninfo fb_var;
 } ;
 
-class Fbdev : virtual public SFGLDATA
+class Fbdev : public SFGLDATA
 {
 public:
     Fbdev(const int w = 0, const int h = 0);
@@ -53,6 +53,7 @@ public:
     static int8_t greenOffset;
     static int8_t alphaOffset;
     void reDraw(SFGLDATA &arg);
+    //void reDraw(uint32_t *raw, SFGLRect &arg);
     void update(void);
 
 

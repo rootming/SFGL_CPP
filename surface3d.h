@@ -15,8 +15,8 @@ public:
 		TriangleStrip, TriangleFan, Triangles};
     SFGLSurface3D(const int width, const int height);
     virtual ~SFGLSurface3D(void) {}
-    void update(void){}
-    bool valid(void) {}
+    void update(void);
+    //bool valid(void) {}
     int getWidth(void) const {return buffer.width;}
     int getHeight(void) const {return buffer.height;}
     void resize(const int w, const int h);

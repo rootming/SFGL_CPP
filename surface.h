@@ -3,11 +3,11 @@
 #include "drawdef.h"
 #include "fbdev.h"
 
-class SFGLSurface : virtual public SFGLDATA
+class SFGLSurface : public SFGLDATA
 {
 public:
     SFGLSurface(int32_t w = 0, int32_t h = 0, SFGLDATA *parent = 0);
-    ~SFGLSurface();
+    virtual ~SFGLSurface();
     void setColor(SFGLColor &color);
     void update(void);
     //int trylock() { return pthread_mutex_trylock(&mutex); }

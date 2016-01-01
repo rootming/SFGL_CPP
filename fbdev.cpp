@@ -191,10 +191,19 @@ void Fbdev::update(void)
 
 void Fbdev::reDraw(SFGLDATA &arg)
 {
-    for(int32_t y = 0; y < arg.getHeight(); y++){
+    int32_t tWidth = arg.getWidth() < getWidth() - arg.getPostx() ?
+                arg.getWidth() : getWidth() - arg.getPostx();
+    int32_t tHeight = arg.getHeight() < getHeight() - arg.getPosty() ?
+                arg.getHeight() : getHeight() - arg.getPosty();
+    for(int32_t y = 0; y < tHeight; y++){
             memcpy(buffer + getWidth() * arg.getPosty() + arg.getPostx()
                             + y * getWidth(),
                    arg.buffer + arg.getWidth() * y,
-                   arg.getWidth() * sizeof(int32_t));
+                   tWidth * sizeof(int32_t));
     }
 }
+
+//void Fbdev::reDraw(uint32_t *raw, SFGLRect &arg)
+//{
+
+//}

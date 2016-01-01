@@ -22,7 +22,7 @@ int SFGLMain(const int width, const int height, const int fps)
          SFGL_DEBUG_WORRY("Init video device Error!\n");
          exit(0);
      }
-
+     return 0;
 }
 
 int SFGLExit()

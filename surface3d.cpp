@@ -2,6 +2,8 @@
 #include <cstring>
 #include <algorithm>
 #include "surface3d.h"
+#include "basedraw.h"
+#include "debug.h"
 
 //#define ROUND(x)	(x >= 0 ? (long)(x + 0.5) : (long)(x - 0.5))
 
@@ -29,6 +31,8 @@ void SFGLSurface3D::Buffer::resize(const int w, const int h)
 
 SFGLSurface3D::SFGLSurface3D(const int width, const int height)
 {
+    SFGLDATA::buffer = NULL;
+    SFGLDATA::resize(width, height);
 	resize(width, height);
 }
 
@@ -569,4 +573,13 @@ void SFGLSurface3D::drawScanline(int y, float xL, float xR, float zL, float zR, 
 		f = ((float)x1 + 0.5 - xL) / dx;
 		plot(x1++, y, false, f * dz + zL, f * dc + cL);
 	}
+}
+void SFGLSurface3D::update(void)
+{
+    if(Fbdev::videoDevice == NULL){
+        SFGL_DEBUG_WORRY("Video device not init!\n");
+    }
+    memcpy(SFGLDATA::buffer, buffer.data, buffer.bytes());
+    Fbdev::videoDevice->reDraw(*this);
+    Fbdev::videoDevice->update();
 }
