@@ -5,6 +5,8 @@
 #include <cstring>
 #include <algorithm>
 
+#undef SFGL_DEBUG
+
 SFGLDraw::SFGLDraw()
 {
 
@@ -234,7 +236,7 @@ void SFGLDraw::drawStr(SFGLDATA &surface, string &str, int32_t x, int32_t y)
             continue;
         }
         for(uint32_t l = 0; l <= 9; l++){
-            for(uint32_t i = 8; i <= 16; i++){
+            for(uint32_t i = POS_START; i <= POS_END; i++){
                 if((font_bits[seek] >> i) & 0x1){
                     drawPixel(surface, ox - i, oy + l, 100, 255, 255, 100);
                     //cout<<"*";

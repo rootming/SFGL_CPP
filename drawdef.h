@@ -4,8 +4,11 @@
 #include <stdint.h>
 #include <vector>
 
+#define PI	3.14159265358979
 
 using namespace std;
+
+
 
 //绘图部分数据类型定义
 //#define TRANSPRENT 1
@@ -53,6 +56,7 @@ typedef enum _SFGL_COLOR{
 
 class SFGLDraw;
 class SFGLSurface;
+class Fbdev;
 
 class SFGLDATA
 {
@@ -69,6 +73,7 @@ public:
     virtual void addChild(SFGLDATA *child = 0);
     friend class SFGLDraw;
     friend class SFGLSurface;
+    friend class Fbdev;
 protected:
     int32_t width, height;
     int32_t postx, posty;

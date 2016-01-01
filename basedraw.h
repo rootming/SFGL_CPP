@@ -6,6 +6,24 @@
 
 using namespace std;
 
+
+#define BIGEDITION      0
+#define LITTLEEDITION   1
+
+#define EDITION LITTLEEDITION
+
+#if EDITION == BIGEDITION
+
+#define POS_START 0
+#define POS_END 7
+
+#else
+
+#define POS_START 8
+#define POS_END 16
+
+#endif
+
 #define GETMAX(a, b) (a) >= (b) ? (a) : (b)
 #define GETMIN(a, b) (a) <= (b) ? (a) : (b)
 

@@ -42,7 +42,7 @@ class Fbdev : virtual public SFGLDATA
 {
 public:
     Fbdev(const int w = 0, const int h = 0);
-    ~Fbdev();
+    virtual ~Fbdev();
     static Fbdev *videoDevice;
 //    int getWidth(void) const {return width;}
 //    int getHeight(void) const {return height;}
@@ -52,8 +52,8 @@ public:
     static int8_t blueOffset;
     static int8_t greenOffset;
     static int8_t alphaOffset;
+    void reDraw(SFGLDATA &arg);
     void update(void);
-
 
 
 

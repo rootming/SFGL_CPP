@@ -20,8 +20,15 @@ Fbdev::Fbdev(const int w, const int h)
     width = w;
     height = h;
     depth = 32;
-    if(videoDevice == NULL)
-        initFbdev();
+    if(videoDevice == NULL){
+        if(initFbdev() == EXIT_SUCCESS){
+            SFGL_DEBUG_INFO("Init fbdev successful.\n");
+        }
+        else{
+            SFGL_DEBUG_ERROR("Init fbdev fail.\n");
+            exit(0);
+        }
+    }
     buffer = NULL;
     resize(w, h);
     //buffer = new int32_t[width * height * sizeof(int32_t)];
@@ -36,7 +43,7 @@ Fbdev::~Fbdev()
             close(data.fbdf);
         }
     }
-
+    delete videoDevice;
 }
 
 int Fbdev::initFbdev(void)
@@ -179,5 +186,15 @@ void Fbdev::update(void)
             memcpy((int32_t *)data.fb_mmap + data.width * (y + posty) + postx,
                    buffer + width * y,
                    width * sizeof(int32_t));
+    }
+}
+
+void Fbdev::reDraw(SFGLDATA &arg)
+{
+    for(int32_t y = 0; y < arg.getHeight(); y++){
+            memcpy(buffer + getWidth() * arg.getPosty() + arg.getPostx()
+                            + y * getWidth(),
+                   arg.buffer + arg.getWidth() * y,
+                   arg.getWidth() * sizeof(int32_t));
     }
 }
