@@ -191,6 +191,10 @@ void Fbdev::update(void)
 
 void Fbdev::reDraw(SFGLDATA &arg)
 {
+    if(arg.buffer == NULL){
+        SFGL_DEBUG_ERROR("Surface Buffer is NULL!\n");
+        return;
+    }
     int32_t tWidth = arg.getWidth() < getWidth() - arg.getPostx() ?
                 arg.getWidth() : getWidth() - arg.getPostx();
     int32_t tHeight = arg.getHeight() < getHeight() - arg.getPosty() ?

@@ -14,7 +14,7 @@ int delay = 0;
 
 //}
 
-int SFGLMain(const int width, const int height, const int fps)
+int SFGLMain(const int width, const int height)
 {
 
      Fbdev *Video = new Fbdev(width, height);

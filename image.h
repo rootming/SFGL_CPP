@@ -6,7 +6,7 @@
 using namespace std;
 
 
-class SFGLImage : public SFGLSurface
+class SFGLImage : public SFGLDATA
 {
 public:
     SFGLImage() = default;

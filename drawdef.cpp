@@ -1,5 +1,6 @@
 #include "drawdef.h"
 #include "debug.h"
+#include "fbdev.h"
 #include <iostream>
 
 
@@ -27,4 +28,13 @@ void SFGLDATA::addChild(SFGLDATA *child)
     SFGL_DEBUG_INFO("Add child");
 #endif
     surfaceStack.push_back(child);
+}
+
+void SFGLDATA::update(void)
+{
+    if(Fbdev::videoDevice == NULL){
+        SFGL_DEBUG_WORRY("Video device not init!\n");
+    }
+    Fbdev::videoDevice->reDraw(*this);
+    Fbdev::videoDevice->update();
 }

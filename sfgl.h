@@ -2,6 +2,6 @@
 #define SFGL_H
 
 
-int SFGLMain(const int width, const int height, const int fps = 30);
+int SFGLMain(const int width, const int height);
 
 #endif // SFGL_H

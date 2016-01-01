@@ -9,7 +9,7 @@ public:
     SFGLSurface(int32_t w = 0, int32_t h = 0, SFGLDATA *parent = 0);
     virtual ~SFGLSurface();
     void setColor(SFGLColor &color);
-    void update(void);
+    //void update(void);
     //int trylock() { return pthread_mutex_trylock(&mutex); }
 
 

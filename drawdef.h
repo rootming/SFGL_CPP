@@ -69,7 +69,7 @@ public:
     void setPostx(const int32_t x){ postx = x; }
     void setPosty(const int32_t y){ posty = y; }
     virtual void resize(const int w, const int h);
-    virtual void update(void) = 0;
+    virtual void update(void);
     virtual void addChild(SFGLDATA *child = 0);
     friend class SFGLDraw;
     friend class SFGLSurface;

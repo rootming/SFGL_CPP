@@ -1,4 +1,5 @@
 #include "surface.h"
+#include "basedraw.h"
 #include "fbdev.h"
 #include "debug.h"
 
@@ -29,21 +30,20 @@ SFGLSurface::~SFGLSurface()
 void SFGLSurface::setColor(SFGLColor &color)
 {
     //lock();
-    int32_t tmp = color.r << 24 | color.g << 16 | color.b << 8 | color.a;
     for(int y = 0; y < height; y++)
         for(int x = 0; x < width; x++)
-            *(buffer + y * width + x) = tmp;
+            SFGLDraw::drawPixel(*this, x, y, color.r, color.g, color.b, color.a);
     //unlock();
 
 }
 
-void SFGLSurface::update(void)
-{
-    if(Fbdev::videoDevice == NULL){
-        SFGL_DEBUG_WORRY("Video device not init!\n");
-    }
-    Fbdev::videoDevice->reDraw(*this);
-    Fbdev::videoDevice->update();
-}
+//void SFGLSurface::update(void)
+//{
+//    if(Fbdev::videoDevice == NULL){
+//        SFGL_DEBUG_WORRY("Video device not init!\n");
+//    }
+//    Fbdev::videoDevice->reDraw(*this);
+//    Fbdev::videoDevice->update();
+//}
 
 
