@@ -21,7 +21,7 @@
 
 /* Font character bitmap data. */
 //static uint16_t font_bits[2230] =
-uint16_t font_bits[2230] =
+static uint16_t font_bits[] =
 		{
 		/* Character 0 (0x00):
 		 width 6

@@ -15,7 +15,7 @@ using namespace std;
 #if EDITION == BIGEDITION
 
 #define POS_START 0
-#define POS_END 7
+#define POS_END 8
 
 #else
 
@@ -103,9 +103,9 @@ class SFGLDraw
                 uint8_t r, uint8_t g, uint8_t b, uint8_t a = 0);
 
 		/* 写字符函数,只支持ASCII */
-        static void drawStr(SFGLData &surface, string &str, int32_t x, int32_t y);
+	static void drawStr(SFGLData &surface, string &str, int32_t x, int32_t y, SFGLColor &color);
 
-        static void drawStr(SFGLData &surface, string &str, SFGLPost &post);
+	static void drawStr(SFGLData &surface, string &str, SFGLPost &post, SFGLColor &color);
 
         static void fillSurface(SFGLData &surface, uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 

@@ -8,7 +8,13 @@ SOURCES += main.cpp \
     basedraw.cpp \
     surface.cpp \
     image.cpp \
-    drawdef.cpp
+    drawdef.cpp \
+    matrix4x4.cpp \
+    vector3d.cpp \
+    vector4d.cpp \
+    surface3d.cpp \
+    sfgl.cpp \
+    sfgllable.cpp
 
 HEADERS += \
     fbdev.h \
@@ -17,8 +23,14 @@ HEADERS += \
     surface.h \
     deffont.h \
     drawdef.h \
-    image.h
+    image.h \
+    matrix4x4.h \
+    vector3d.h \
+    vector4d.h \
+    surface3d.h \
+    sfgl.h \
+    sfgllable.h
 
-
-LIBS += -static -lpthread -lpng12 -lz
+LIBS += -static -lpthread -lpng12 -lz -lfreetype
 QMAKE_CXXFLAGS +=
+INCLUDEPATH += /usr/include/freetype2

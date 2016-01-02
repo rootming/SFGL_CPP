@@ -213,7 +213,7 @@ void SFGLDraw::drawCircleFill(SFGLData &surface, int32_t x, int32_t y, int32_t r
 }
 
 /* 写字符函数,只支持ASCII */
-void SFGLDraw::drawStr(SFGLData &surface, string &str, int32_t x, int32_t y)
+void SFGLDraw::drawStr(SFGLData &surface, string &str, int32_t x, int32_t y, SFGLColor &color)
 {
 #ifdef DEBUG
     SFGL_DEBUG_INFO("%s\n", str.c_str());
@@ -235,10 +235,10 @@ void SFGLDraw::drawStr(SFGLData &surface, string &str, int32_t x, int32_t y)
             oy += 10;
             continue;
         }
-        for(uint32_t l = 0; l <= 9; l++){
-            for(uint32_t i = POS_START; i <= POS_END; i++){
+        for(uint32_t l = 0; l < 10; l++){
+            for(uint32_t i = POS_START; i < POS_END; i++){
                 if((font_bits[seek] >> i) & 0x1){
-                    drawPixel(surface, ox - i, oy + l, 100, 255, 255, 100);
+                    drawPixel(surface, ox - i, oy + l, color.r, color.g, color.b, color.a);
                     //cout<<"*";
                 }
                 else{
@@ -257,9 +257,9 @@ void SFGLDraw::drawStr(SFGLData &surface, string &str, int32_t x, int32_t y)
 
 }
 
-void SFGLDraw::drawStr(SFGLData &surface, string &str, SFGLPost &post)
+void SFGLDraw::drawStr(SFGLData &surface, string &str, SFGLPost &post, SFGLColor &color)
 {
-    drawStr(surface, str, post.x, post.y);
+    drawStr(surface, str, post.x, post.y, color);
 
 }
 

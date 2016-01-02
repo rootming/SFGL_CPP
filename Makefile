@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = 
 CFLAGS        = -pipe -g -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=c++0x -Wall -W -fPIC $(DEFINES)
-INCPATH       = -I. -I../../../Qt5.5.1/5.5/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I/usr/include/freetype2 -I../../../Qt5.5.1/5.5/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/rootming/Qt5.5.1/5.5/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = SFGL1.0.0
 DISTDIR = /home/rootming/SFGL/new/SFGL/.tmp/SFGL1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/rootming/Qt5.5.1/5.5/gcc_64
-LIBS          = $(SUBLIBS) -static -lpthread -lpng12 -lz 
+LIBS          = $(SUBLIBS) -static -lpthread -lpng12 -lz -lfreetype 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,13 +53,25 @@ SOURCES       = main.cpp \
 		basedraw.cpp \
 		surface.cpp \
 		image.cpp \
-		drawdef.cpp 
+		drawdef.cpp \
+		matrix4x4.cpp \
+		vector3d.cpp \
+		vector4d.cpp \
+		surface3d.cpp \
+		sfgl.cpp \
+		sfgllable.cpp 
 OBJECTS       = main.o \
 		fbdev.o \
 		basedraw.o \
 		surface.o \
 		image.o \
-		drawdef.o
+		drawdef.o \
+		matrix4x4.o \
+		vector3d.o \
+		vector4d.o \
+		surface3d.o \
+		sfgl.o \
+		sfgllable.o
 DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/unix.conf \
 		../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/linux.conf \
@@ -195,12 +207,24 @@ DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		surface.h \
 		deffont.h \
 		drawdef.h \
-		image.h main.cpp \
+		image.h \
+		matrix4x4.h \
+		vector3d.h \
+		vector4d.h \
+		surface3d.h \
+		sfgl.h \
+		sfgllable.h main.cpp \
 		fbdev.cpp \
 		basedraw.cpp \
 		surface.cpp \
 		image.cpp \
-		drawdef.cpp
+		drawdef.cpp \
+		matrix4x4.cpp \
+		vector3d.cpp \
+		vector4d.cpp \
+		surface3d.cpp \
+		sfgl.cpp \
+		sfgllable.cpp
 QMAKE_TARGET  = SFGL
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = SFGL
@@ -532,12 +556,17 @@ compiler_clean:
 
 ####### Compile
 
-main.o: main.cpp fbdev.h \
+main.o: main.cpp sfgl.h \
+		fbdev.h \
 		drawdef.h \
 		basedraw.h \
 		surface.h \
 		debug.h \
-		image.h
+		image.h \
+		surface3d.h \
+		vector3d.h \
+		vector4d.h \
+		matrix4x4.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 fbdev.o: fbdev.cpp fbdev.h \
@@ -556,6 +585,7 @@ basedraw.o: basedraw.cpp basedraw.h \
 surface.o: surface.cpp surface.h \
 		drawdef.h \
 		fbdev.h \
+		basedraw.h \
 		debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o surface.o surface.cpp
 
@@ -565,8 +595,55 @@ image.o: image.cpp image.h \
 		surface.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o image.o image.cpp
 
-drawdef.o: drawdef.cpp drawdef.h
+drawdef.o: drawdef.cpp drawdef.h \
+		debug.h \
+		fbdev.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o drawdef.o drawdef.cpp
+
+matrix4x4.o: matrix4x4.cpp drawdef.h \
+		matrix4x4.h \
+		vector3d.h \
+		vector4d.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o matrix4x4.o matrix4x4.cpp
+
+vector3d.o: vector3d.cpp vector3d.h \
+		vector4d.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vector3d.o vector3d.cpp
+
+vector4d.o: vector4d.cpp vector4d.h \
+		vector3d.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vector4d.o vector4d.cpp
+
+surface3d.o: surface3d.cpp surface3d.h \
+		drawdef.h \
+		surface.h \
+		fbdev.h \
+		vector3d.h \
+		vector4d.h \
+		matrix4x4.h \
+		basedraw.h \
+		debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o surface3d.o surface3d.cpp
+
+sfgl.o: sfgl.cpp sfgl.h \
+		fbdev.h \
+		drawdef.h \
+		basedraw.h \
+		surface.h \
+		debug.h \
+		image.h \
+		surface3d.h \
+		vector3d.h \
+		vector4d.h \
+		matrix4x4.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sfgl.o sfgl.cpp
+
+sfgllable.o: sfgllable.cpp sfgllable.h \
+		surface.h \
+		drawdef.h \
+		fbdev.h \
+		debug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sfgllable.o sfgllable.cpp
 
 ####### Install
 

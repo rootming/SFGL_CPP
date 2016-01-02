@@ -96,6 +96,7 @@ struct SFGLColor
         this->b = b;
         this->a = a;
     }
+    SFGLColor() :r(0), g(0), b(0), a(0){}
     uint8_t r;
     uint8_t g;
     uint8_t b;

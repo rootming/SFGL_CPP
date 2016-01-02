@@ -12,6 +12,7 @@ public:
     void fillRect(SFGLRect &, SFGLColor &);
     virtual ~SFGLSurface();
     void setColor(SFGLColor &color);
+    void setColorMode(SFGLCOLORMODE mode){ colormode = mode;}
     //void update(void);
     //int trylock() { return pthread_mutex_trylock(&mutex); }
 
