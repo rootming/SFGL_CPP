@@ -14,14 +14,14 @@ SOURCES += main.cpp \
     vector4d.cpp \
     surface3d.cpp \
     sfgl.cpp \
-    sfgllable.cpp
+    sfgllable.cpp \
+    font.cpp
 
 HEADERS += \
     fbdev.h \
     debug.h \
     basedraw.h \
     surface.h \
-    deffont.h \
     drawdef.h \
     image.h \
     matrix4x4.h \
@@ -29,7 +29,8 @@ HEADERS += \
     vector4d.h \
     surface3d.h \
     sfgl.h \
-    sfgllable.h
+    sfgllable.h \
+    font.h
 
 LIBS += -static -lpthread -lpng12 -lz -lfreetype
 QMAKE_CXXFLAGS +=

@@ -1,7 +1,7 @@
 #include "basedraw.h"
 #include "drawdef.h"
 #include "debug.h"
-#include "deffont.h"
+#include "font.h"
 #include <cstring>
 #include <algorithm>
 
@@ -236,7 +236,7 @@ void SFGLDraw::drawStr(SFGLData &surface, string &str, int32_t x, int32_t y, SFG
             continue;
         }
         for(uint32_t l = 0; l < 10; l++){
-            for(uint32_t i = POS_START; i < POS_END; i++){
+            for(uint32_t i = 0; i < 8; i++){
                 if((font_bits[seek] >> i) & 0x1){
                     drawPixel(surface, ox - i, oy + l, color.r, color.g, color.b, color.a);
                     //cout<<"*";

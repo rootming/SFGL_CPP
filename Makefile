@@ -59,7 +59,8 @@ SOURCES       = main.cpp \
 		vector4d.cpp \
 		surface3d.cpp \
 		sfgl.cpp \
-		sfgllable.cpp 
+		sfgllable.cpp \
+		font.cpp 
 OBJECTS       = main.o \
 		fbdev.o \
 		basedraw.o \
@@ -71,7 +72,8 @@ OBJECTS       = main.o \
 		vector4d.o \
 		surface3d.o \
 		sfgl.o \
-		sfgllable.o
+		sfgllable.o \
+		font.o
 DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/unix.conf \
 		../../../Qt5.5.1/5.5/gcc_64/mkspecs/common/linux.conf \
@@ -205,7 +207,6 @@ DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		debug.h \
 		basedraw.h \
 		surface.h \
-		deffont.h \
 		drawdef.h \
 		image.h \
 		matrix4x4.h \
@@ -213,7 +214,8 @@ DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		vector4d.h \
 		surface3d.h \
 		sfgl.h \
-		sfgllable.h main.cpp \
+		sfgllable.h \
+		font.h main.cpp \
 		fbdev.cpp \
 		basedraw.cpp \
 		surface.cpp \
@@ -224,7 +226,8 @@ DIST          = ../../../Qt5.5.1/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		vector4d.cpp \
 		surface3d.cpp \
 		sfgl.cpp \
-		sfgllable.cpp
+		sfgllable.cpp \
+		font.cpp
 QMAKE_TARGET  = SFGL
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = SFGL
@@ -566,7 +569,8 @@ main.o: main.cpp sfgl.h \
 		surface3d.h \
 		vector3d.h \
 		vector4d.h \
-		matrix4x4.h
+		matrix4x4.h \
+		sfgllable.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 fbdev.o: fbdev.cpp fbdev.h \
@@ -579,7 +583,7 @@ basedraw.o: basedraw.cpp basedraw.h \
 		drawdef.h \
 		fbdev.h \
 		debug.h \
-		deffont.h
+		font.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o basedraw.o basedraw.cpp
 
 surface.o: surface.cpp surface.h \
@@ -635,15 +639,20 @@ sfgl.o: sfgl.cpp sfgl.h \
 		surface3d.h \
 		vector3d.h \
 		vector4d.h \
-		matrix4x4.h
+		matrix4x4.h \
+		sfgllable.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sfgl.o sfgl.cpp
 
 sfgllable.o: sfgllable.cpp sfgllable.h \
 		surface.h \
 		drawdef.h \
 		fbdev.h \
-		debug.h
+		debug.h \
+		basedraw.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sfgllable.o sfgllable.cpp
+
+font.o: font.cpp font.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o font.o font.cpp
 
 ####### Install
 
