@@ -58,19 +58,21 @@ class SFGLDraw;
 class SFGLSurface;
 class Fbdev;
 
-class SFGLDATA
+class SFGLData
 {
 public:
-    SFGLDATA();
+    SFGLData();
+    //SFGLData(const SFGLData &);
     int getWidth(void) const { return width; }
     int getHeight(void) const { return height; }
     int getPostx(void) const { return postx; }
     int getPosty(void) const { return posty; }
     void setPostx(const int32_t x){ postx = x; }
     void setPosty(const int32_t y){ posty = y; }
+    void setFather(SFGLData *parent){ father = parent; }
     virtual void resize(const int w, const int h);
     virtual void update(void);
-    virtual void addChild(SFGLDATA *child = 0);
+    virtual void addChild(SFGLData *child = 0);
     friend class SFGLDraw;
     friend class SFGLSurface;
     friend class Fbdev;
@@ -79,8 +81,9 @@ protected:
     int32_t postx, posty;
     int8_t depth;
     int32_t *buffer;	//缓冲图层指针
+    SFGLData *father;
     int32_t bytes(void) const {return width * height * sizeof(int32_t);}
-    vector <SFGLDATA *> surfaceStack;
+    vector <SFGLData *> surfaceStack;
 
 };
 

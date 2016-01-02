@@ -6,11 +6,11 @@
 using namespace std;
 
 
-class SFGLImage : public SFGLDATA
+class SFGLImage : public SFGLSurface
 {
 public:
     SFGLImage() = default;
-    SFGLImage(string filename, SFGLDATA *parent = 0);
+    SFGLImage(string filename, SFGLData *parent = 0);
     int loadFile(string filename);
 private:
     int loadImageFromPNG(string filename);

@@ -189,7 +189,7 @@ void Fbdev::update(void)
     }
 }
 
-void Fbdev::reDraw(SFGLDATA &arg)
+void Fbdev::reDraw(SFGLData &arg)
 {
     if(arg.buffer == NULL){
         SFGL_DEBUG_ERROR("Surface Buffer is NULL!\n");

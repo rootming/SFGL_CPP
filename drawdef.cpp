@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-SFGLDATA::SFGLDATA()
+SFGLData::SFGLData()
 {
     width = 0;
     height = 0;
@@ -12,17 +12,18 @@ SFGLDATA::SFGLDATA()
     posty = 0;
 }
 
-void SFGLDATA::resize(const int w, const int h)
+void SFGLData::resize(const int w, const int h)
 {
     width = w;
     height = h;
     if(buffer != NULL)
         delete []buffer;
     buffer = new int32_t[bytes() / sizeof(int32_t)];
+    memset(buffer, 0, bytes());
 }
 
 
-void SFGLDATA::addChild(SFGLDATA *child)
+void SFGLData::addChild(SFGLData *child)
 {
 #ifdef DEBUG
     SFGL_DEBUG_INFO("Add child");
@@ -30,7 +31,7 @@ void SFGLDATA::addChild(SFGLDATA *child)
     surfaceStack.push_back(child);
 }
 
-void SFGLDATA::update(void)
+void SFGLData::update(void)
 {
     if(Fbdev::videoDevice == NULL){
         SFGL_DEBUG_WORRY("Video device not init!\n");

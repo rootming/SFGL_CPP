@@ -31,8 +31,8 @@ void SFGLSurface3D::Buffer::resize(const int w, const int h)
 
 SFGLSurface3D::SFGLSurface3D(const int width, const int height)
 {
-    SFGLDATA::buffer = NULL;
-    SFGLDATA::resize(width, height);
+    SFGLData::buffer = NULL;
+    SFGLData::resize(width, height);
 	resize(width, height);
 }
 
@@ -579,7 +579,7 @@ void SFGLSurface3D::update(void)
     if(Fbdev::videoDevice == NULL){
         SFGL_DEBUG_WORRY("Video device not init!\n");
     }
-    memcpy(SFGLDATA::buffer, buffer.data, buffer.bytes());
+    memcpy(SFGLData::buffer, buffer.data, buffer.bytes());
     Fbdev::videoDevice->reDraw(*this);
     Fbdev::videoDevice->update();
 }

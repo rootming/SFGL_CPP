@@ -1,7 +1,7 @@
 #include "image.h"
 #include <png.h>
 
-SFGLImage::SFGLImage(string filename, SFGLDATA *parent)
+SFGLImage::SFGLImage(string filename, SFGLData *parent)
 {
     buffer = NULL;
     loadFile(filename);

@@ -14,7 +14,7 @@ SFGLDraw::SFGLDraw()
 }
 
 
-void SFGLDraw::drawPixel(SFGLDATA &surface, int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawPixel(SFGLData &surface, int32_t x, int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     //lock();
     int32_t seek;
@@ -41,7 +41,7 @@ void SFGLDraw::drawPixel(SFGLDATA &surface, int32_t x, int32_t y, uint8_t r, uin
     //unlock();
 }
 
-void SFGLDraw::drawPixel(SFGLDATA &surface, SFGLPixel &pixel)
+void SFGLDraw::drawPixel(SFGLData &surface, SFGLPixel &pixel)
 {
     int32_t seek;
     int32_t tmp = pixel.r << 24 | pixel.g << 16 | pixel.b << 8 | pixel.a;
@@ -62,7 +62,7 @@ void SFGLDraw::drawPixel(SFGLDATA &surface, SFGLPixel &pixel)
 
 
 /* 画线函数 */
-void SFGLDraw::drawLine(SFGLDATA &surface, int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawLine(SFGLData &surface, int32_t x1, int32_t y1, int32_t x2, int32_t y2, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t x_s, x_e, y_s, y_e;/* Be careful */
     int32_t bz;
@@ -86,7 +86,7 @@ void SFGLDraw::drawLine(SFGLDATA &surface, int32_t x1, int32_t y1, int32_t x2, i
 
 }
 
-void SFGLDraw::drawLine(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFGLColor &color)
+void SFGLDraw::drawLine(SFGLData &surface, SFGLPost &post1, SFGLPost &post2, SFGLColor &color)
 {
     int32_t x_s, x_e, y_s, y_e;/* Be careful */
     int32_t bz;
@@ -110,7 +110,7 @@ void SFGLDraw::drawLine(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFG
 }
 
 /* 画矩形函数 */
-void SFGLDraw::drawRect(SFGLDATA &surface,int32_t x, int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawRect(SFGLData &surface,int32_t x, int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
 
     drawLine(surface, x, y, x + w, y, r, g, b, a);
@@ -119,51 +119,51 @@ void SFGLDraw::drawRect(SFGLDATA &surface,int32_t x, int32_t y,int32_t w, int32_
     drawLine(surface, x + w, y, x + w, y + h, r, g, b, a);
 }
 
-void SFGLDraw::drawRectFill(SFGLDATA &surface, int32_t x,int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawRectFill(SFGLData &surface, int32_t x,int32_t y,int32_t w, int32_t h, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t yy;
     for(yy = 0; yy <= h; yy++)
         drawLine(surface, x, y + yy, x + w, y + yy, r, g, b, a);
 }
 
-void SFGLDraw::drawRect(SFGLDATA &surface, SFGLRect &rect, SFGLColor &color)
+void SFGLDraw::drawRect(SFGLData &surface, SFGLRect &rect, SFGLColor &color)
 {
     drawRect(surface, rect.x, rect.y, rect.w, rect.h, color.r, color.g, color.b, color.a);
 }
 
-void SFGLDraw::drawRectFill(SFGLDATA &surface,  SFGLRect &rect, SFGLColor &color)
+void SFGLDraw::drawRectFill(SFGLData &surface,  SFGLRect &rect, SFGLColor &color)
 {
     drawRectFill(surface, rect.x, rect.y, rect.w, rect.h, color.r, color.g, color.b, color.a);
 }
 
 /* 画正方形函数 */
-void SFGLDraw::drawSquare(SFGLDATA &surface, int32_t x, int32_t y, int32_t len, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawSquare(SFGLData &surface, int32_t x, int32_t y, int32_t len, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     drawRect(surface, x, y, len, len, r, g, b, a);
 
 }
 
-void SFGLDraw::drawSquareFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t len,
+void SFGLDraw::drawSquareFill(SFGLData &surface, int32_t x, int32_t y, int32_t len,
                               uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     drawRectFill(surface, x, y, len, len, r, g, b, a);
 
 }
 
-void SFGLDraw::drawSquare(SFGLDATA &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
+void SFGLDraw::drawSquare(SFGLData &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
 {
     drawRect(surface, x, y, len, len, color.r, color.g, color.b, color.a);
 
 }
 
-void SFGLDraw::drawSquareFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
+void SFGLDraw::drawSquareFill(SFGLData &surface, int32_t x, int32_t y, int32_t len, SFGLColor &color)
 {
     drawRectFill(surface, x, y, len, len, color.r, color.g, color.b, color.a);
 
 }
 
 
-void SFGLDraw::putDot(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t x,
+void SFGLDraw::putDot(SFGLData &surface, int32_t x0, int32_t y0, int32_t x,
                       int32_t y, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     drawPixel(surface, x0 + x, y0 + y, r, g, b, a);
@@ -177,7 +177,7 @@ void SFGLDraw::putDot(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t x,
 }
 
 /* 画圆函数 */
-void SFGLDraw::drawCircle(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawCircle(SFGLData &surface, int32_t x0, int32_t y0, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     if(x0 - r >= surface.width || y0 - r >= surface.height)
         return;
@@ -201,7 +201,7 @@ void SFGLDraw::drawCircle(SFGLDATA &surface, int32_t x0, int32_t y0, int32_t rad
 
 }
 
-void SFGLDraw::drawCircleFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::drawCircleFill(SFGLData &surface, int32_t x, int32_t y, int32_t rad, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     int32_t yy;
     double tmp;
@@ -213,7 +213,7 @@ void SFGLDraw::drawCircleFill(SFGLDATA &surface, int32_t x, int32_t y, int32_t r
 }
 
 /* 写字符函数,只支持ASCII */
-void SFGLDraw::drawStr(SFGLDATA &surface, string &str, int32_t x, int32_t y)
+void SFGLDraw::drawStr(SFGLData &surface, string &str, int32_t x, int32_t y)
 {
 #ifdef DEBUG
     SFGL_DEBUG_INFO("%s\n", str.c_str());
@@ -257,13 +257,13 @@ void SFGLDraw::drawStr(SFGLDATA &surface, string &str, int32_t x, int32_t y)
 
 }
 
-void SFGLDraw::drawStr(SFGLDATA &surface, string &str, SFGLPost &post)
+void SFGLDraw::drawStr(SFGLData &surface, string &str, SFGLPost &post)
 {
     drawStr(surface, str, post.x, post.y);
 
 }
 
-void SFGLDraw::fillSurface(SFGLDATA &surface, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+void SFGLDraw::fillSurface(SFGLData &surface, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
 {
     for(int32_t y = 0; y < surface.height; y++)
         for(int32_t x = 0; x < surface.width; x++)
@@ -273,7 +273,7 @@ void SFGLDraw::fillSurface(SFGLDATA &surface, uint8_t r, uint8_t g, uint8_t b, u
 
 }
 
-void SFGLDraw::fillSurface(SFGLDATA &surface, SFGLPixel &color)
+void SFGLDraw::fillSurface(SFGLData &surface, SFGLPixel &color)
 {
     for(int32_t y = 0; y < surface.height; y++)
         for(int32_t x = 0; x < surface.width; x++)
@@ -281,14 +281,14 @@ void SFGLDraw::fillSurface(SFGLDATA &surface, SFGLPixel &color)
 
 }
 
-void SFGLDraw::drawTriangle(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFGLPost &post3, SFGLColor &color)
+void SFGLDraw::drawTriangle(SFGLData &surface, SFGLPost &post1, SFGLPost &post2, SFGLPost &post3, SFGLColor &color)
 {
     drawLine(surface, post1, post2, color);
     drawLine(surface, post1, post3, color);
     drawLine(surface, post2, post3, color);
 }
 
-void SFGLDraw::fillBottomFlatTriangle(SFGLDATA &surface, SFGLPost &v1, SFGLPost &v2, SFGLPost &v3, SFGLColor &color)
+void SFGLDraw::fillBottomFlatTriangle(SFGLData &surface, SFGLPost &v1, SFGLPost &v2, SFGLPost &v3, SFGLColor &color)
 {
   int32_t invslope1 = (v2.x - v1.x) / (v2.y - v1.y);
   int32_t invslope2 = (v3.x - v1.x) / (v3.y - v1.y);
@@ -305,7 +305,7 @@ void SFGLDraw::fillBottomFlatTriangle(SFGLDATA &surface, SFGLPost &v1, SFGLPost 
 }
 
 
-void SFGLDraw::fillTopFlatTriangle(SFGLDATA &surface, SFGLPost &v1, SFGLPost &v2, SFGLPost &v3, SFGLColor &color)
+void SFGLDraw::fillTopFlatTriangle(SFGLData &surface, SFGLPost &v1, SFGLPost &v2, SFGLPost &v3, SFGLColor &color)
 {
   int32_t invslope1 = (v3.x - v1.x) / (v3.y - v1.y);
   int32_t invslope2 = (v3.x - v2.x) / (v3.y - v2.y);
@@ -321,7 +321,7 @@ void SFGLDraw::fillTopFlatTriangle(SFGLDATA &surface, SFGLPost &v1, SFGLPost &v2
   }
 }
 
-void SFGLDraw::drawTriangleFill(SFGLDATA &surface, SFGLPost &post1, SFGLPost &post2, SFGLPost &post3, SFGLColor &color)
+void SFGLDraw::drawTriangleFill(SFGLData &surface, SFGLPost &post1, SFGLPost &post2, SFGLPost &post3, SFGLColor &color)
 {
     /* at first sort the three vertices by y-coordinate ascending so v1 is the topmost vertice */
     vector<SFGLPost> v;

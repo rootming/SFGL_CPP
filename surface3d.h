@@ -4,11 +4,12 @@
 #include <inttypes.h>
 #include <vector>
 #include "drawdef.h"
+#include "surface.h"
 #include "vector3d.h"
 #include "vector4d.h"
 #include "matrix4x4.h"
 
-class SFGLSurface3D: public SFGLDATA
+class SFGLSurface3D: public SFGLSurface
 {
 public:
 	enum DrawModes {Points, LineStrip, LineLoop, Lines, \
