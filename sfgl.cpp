@@ -33,10 +33,10 @@ void SFGLResizeScreen(const int width, const int height)
    Fbdev::videoDevice->update();
 }
 
-int SFGLExit()
+int SFGLExit(void)
 {
-  if(Fbdev::videoDevice != NULL)
-    delete Fbdev::videoDevice;
+  //if(Fbdev::videoDevice != NULL)
+    //delete Fbdev::videoDevice;
   return 0;
 }
 

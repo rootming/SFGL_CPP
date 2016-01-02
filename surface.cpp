@@ -2,6 +2,7 @@
 #include "basedraw.h"
 #include "fbdev.h"
 #include "debug.h"
+#include <cstdlib>
 
 
 SFGLSurface::SFGLSurface(int32_t w, int32_t h, SFGLData *parent, SFGLCOLORMODE mode)
@@ -11,6 +12,10 @@ SFGLSurface::SFGLSurface(int32_t w, int32_t h, SFGLData *parent, SFGLCOLORMODE m
     colormode = mode;
     setFather(parent);
     if(father == 0){
+	    if(Fbdev::videoDevice == NULL){
+		    SFGL_DEBUG_ERROR("Fbdev not init, exit!\n");
+		    exit(1);
+	    }
         SFGL_DEBUG_INFO("Add a master surface\n");
         Fbdev::videoDevice->addChild(this);
     }

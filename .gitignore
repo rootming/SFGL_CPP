@@ -3,3 +3,6 @@ SFGL
 *.txt
 src
 *.user
+*.png
+output
+bak

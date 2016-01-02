@@ -9,6 +9,7 @@
 #include "sfgllable.h"
 
 int SFGLMain(const int width, const int height);
+int SFGLExit(void);
 void SFGLResizeScreen(const int width, const int height);
 
 #endif // SFGL_H
