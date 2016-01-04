@@ -1,9 +1,9 @@
-TEMPLATE = app
+TEMPLATE = lib
 CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp \
+SOURCES +=  \
     fbdev.cpp \
     basedraw.cpp \
     surface.cpp \
@@ -32,6 +32,6 @@ HEADERS += \
     sfgllable.h \
     font.h
 
-LIBS += -static -lpthread -lpng12 -lz -lfreetype
+LIBS += -lpthread -lpng12 -lz -lfreetype
 QMAKE_CXXFLAGS +=
 INCLUDEPATH += /usr/include/freetype2

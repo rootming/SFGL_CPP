@@ -16,7 +16,7 @@ int SFGLImage::loadImageFromPNG(string filename)
     int x = 0;
     int y = 0;
     //	int passes_nr = 0;
-    uint64_t seek = 0;
+    volatile uint64_t seek = 0;
     int32_t tmp;
 
     FILE *fp = NULL;
