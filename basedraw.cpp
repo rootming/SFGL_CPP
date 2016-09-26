@@ -47,7 +47,7 @@ void SFGLDraw::drawPixel(SFGLData &surface, SFGLPixel &pixel)
     int32_t tmp = pixel.r << 24 | pixel.g << 16 | pixel.b << 8 | pixel.a;
     seek = pixel.x + pixel.y * surface.width;
     //边缘检测
-    if(pixel.x >= 0 && pixel.y >= 0 && pixel.x <= surface.width && pixel.y <= surface.height){
+    if(pixel.x >= 0 && pixel.y >= 0 && pixel.x < surface.width && pixel.y < surface.height){
         memcpy(surface.buffer + seek, &tmp, sizeof(int32_t));
 #ifdef SFGL_DEBUG
         SFGL_DEBUG_INFO("Draw Pixel!\n");
